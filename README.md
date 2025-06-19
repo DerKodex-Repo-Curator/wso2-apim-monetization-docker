@@ -137,5 +137,4 @@ git clone https://github.com/viggnah/wso2-apim-monetization-docker && cd wso2-ap
 * **Rancher Desktop:** 1.15.1 (Moby engine)
 * **Colima:** 0.8.1
 * **Docker Compose:** 2.29.1
-* **Kubernetes (via Rancher):** 1.30.6
-* **OS:** macOS Sonoma 14.4.1 / Sequoia 15.4.1
+* **OS:** macOS Sonoma 14.4.1 / Sequoia 15.4.1 (Apple Silicon)
