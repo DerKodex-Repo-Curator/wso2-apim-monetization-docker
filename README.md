@@ -18,9 +18,10 @@ Get a full WSO2 API Manager setup with a monetized API, ELK analytics, and Strip
 
 ## 🛠️ Before You Start: Prerequisites
 
-1.  **Install Rancher Desktop:**
-    * This setup was tested on Rancher Desktop (using the Moby container engine). Others like Docker Desktop *might* work, but haven't been tested.
-    * Ideal to allocate **4-6 cores** and **4-8 GB memory** (`Preferences > Virtual Machine`).
+1.  **Install Rancher Desktop or Colima:**
+    * This setup was tested on Rancher Desktop (using the Moby container engine) and Colima. Others like Docker Desktop *might* work, but haven't been tested.
+    * Ideal to allocate **4-6 cores** and **4-8 GB memory** - `Preferences > Virtual Machine` in Rancher Desktop or `colima start --cpu 4 --memory 8` for Colima.
+    * If you are using Rancher Desktop and facing container startup issues, try *disabling Kubernetes* in Rancher Desktop settings (to avoid potential port conflicts). This setup uses Docker Compose, so Kubernetes is not required.
 
 2.  **Install Docker Compose:** Make sure you have `docker compose` available in your terminal.
 
@@ -134,5 +135,7 @@ git clone https://github.com/viggnah/wso2-apim-monetization-docker && cd wso2-ap
 ## 💻 Tested Environment
 
 * **Rancher Desktop:** 1.15.1 (Moby engine)
+* **Colima:** 0.8.1
+* **Docker Compose:** 2.29.1
 * **Kubernetes (via Rancher):** 1.30.6
 * **OS:** macOS Sonoma 14.4.1 / Sequoia 15.4.1
