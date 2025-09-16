@@ -2,6 +2,19 @@
 
 # alias docker=nerdctl
 
+# Detect TTY and define colors (fallback to empty strings)
+if [ -t 1 ]; then
+  BOLD="\033[1m"
+  RESET="\033[0m"
+  RED="\033[1;31m"
+  GREEN="\033[1;32m"
+  YELLOW="\033[1;33m"
+  BLUE="\033[1;34m"
+  MAGENTA="\033[1;35m"
+else
+  BOLD="" RESET="" RED="" GREEN="" YELLOW="" BLUE="" MAGENTA=""
+fi
+
 ### Load the secrets
 ENV_FILE="./apim/secrets.env"
 if [ -f "$ENV_FILE" ]; then
@@ -10,9 +23,18 @@ if [ -f "$ENV_FILE" ]; then
 else
   echo "$ENV_FILE not found! This must be the first time you are running the script. Please enter the keys you obtained from Stripe, these will be stored and reused on subsequent runs"
 
-  # Prompt securely for keys
-  read -p "Enter BillingEnginePlatformAccountKey (similar to sk_test_...): " BILLING_KEY
-  read -p "Enter ConnectedAccountKey (similar to acct_...): " CONNECTED_KEY
+  # Prompt for keys
+  echo
+  printf "${BOLD}${MAGENTA}Enter BillingEnginePlatformAccountKey:${RESET} "
+  read BILLING_KEY
+  echo
+  printf "${BOLD}${MAGENTA}Enter ConnectedAccountKey:${RESET} "
+  read CONNECTED_KEY
+  echo
+
+  # Prompt for keys
+  # read -p "Enter BillingEnginePlatformAccountKey (similar to sk_test_...): " BILLING_KEY
+  # read -p "Enter ConnectedAccountKey (similar to acct_...): " CONNECTED_KEY
 
   # Validate keys 
   if [ -z "$BILLING_KEY" ] || [ -z "$CONNECTED_KEY" ]; then
@@ -39,8 +61,6 @@ cleanup() {
     chmod +x ./stop.sh
     ./stop.sh
 }
-
-# trap cleanup SIGINT SIGTERM
 
 ### Execute clean up and start docker compose
 cleanup
@@ -92,25 +112,22 @@ print_separator() {
 }
 
 # --- Main Output ---
-print_separator
-printf '=== API Manager Access Information ===\n\n'
+printf "\n"
+printf "${BOLD}${BLUE}=== API Manager Access Information ===${RESET}\n\n"
 
 # Use printf for aligned output. Adjust "-18s" based on the longest label.
-printf "  %-18s: %s\n" "Publisher Portal" "https://localhost:9500/publisher/apis"
-printf "  %-18s: %s\n" "Developer Portal" "https://localhost:9500/devportal"
-printf "  %-18s: %s\n" "Admin Portal"     "https://localhost:9500/admin/dashboard"
+printf "  ${BOLD}%-18s${RESET}: ${GREEN}%s${RESET}\n" "Publisher Portal" "https://localhost:9500/publisher/apis"
+printf "  ${BOLD}%-18s${RESET}: ${GREEN}%s${RESET}\n" "Developer Portal" "https://localhost:9500/devportal"
+printf "  ${BOLD}%-18s${RESET}: ${GREEN}%s${RESET}\n" "Admin Portal"     "https://localhost:9500/admin/dashboard"
 printf "\n"
-printf "  %-18s: %s\n" "Username"         "admin"
-printf "  %-18s: %s\n" "Password"         "admin"
-printf "\n"
-
-print_separator
-printf "=== Kibana Dashboard Access ===\n\n"
-
-printf "  %-18s: %s\n" "URL"              "http://localhost:5601/app/dashboards#/view/f954a940-6ed4-11ec-9007-b93f9eb88870"
-printf "\n"
-printf "  %-18s: %s\n" "Username"         "elastic"
-printf "  %-18s: %s\n" "Password"         "changeme"
+printf "  ${BOLD}%-18s${RESET}: ${MAGENTA}%s${RESET}\n" "Username"         "admin"
+printf "  ${BOLD}%-18s${RESET}: ${MAGENTA}%s${RESET}\n" "Password"         "admin"
 printf "\n"
 
-print_separator
+printf "${BOLD}${BLUE}=== Kibana Dashboard Access ===${RESET}\n\n"
+
+printf "  ${BOLD}%-18s${RESET}: ${GREEN}%s${RESET}\n" "URL"              "http://localhost:5601/app/dashboards#/view/f954a940-6ed4-11ec-9007-b93f9eb88870"
+printf "\n"
+printf "  ${BOLD}%-18s${RESET}: ${MAGENTA}%s${RESET}\n" "Username"         "elastic"
+printf "  ${BOLD}%-18s${RESET}: ${MAGENTA}%s${RESET}\n" "Password"         "changeme"
+printf "\n"
