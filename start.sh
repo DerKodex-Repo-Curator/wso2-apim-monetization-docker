@@ -104,6 +104,9 @@ chmod +x ./apim/make-requests.sh
 chmod +x ./apim/publish-monetization-data.sh
 ./apim/publish-monetization-data.sh
 
+chmod +x ./apim/load-ai-policies.sh
+./apim/load-ai-policies.sh
+
 ### Print final output
 # --- Function to print a separator line ---
 print_separator() {
