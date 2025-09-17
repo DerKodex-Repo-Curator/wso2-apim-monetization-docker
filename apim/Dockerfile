@@ -22,6 +22,7 @@ COPY secrets.env /home/wso2carbon/secrets.env
 COPY update-tenant-admin-key.sh /home/wso2carbon/update-tenant-admin-key.sh
 COPY create-commercial-sub-policy.sh /home/wso2carbon/create-commercial-sub-policy.sh
 COPY custom-entrypoint.sh /home/wso2carbon/custom-entrypoint.sh
+COPY AIPolicies/jars/*.jar /home/wso2carbon/wso2am-4.5.0/repository/components/dropins/
 
 USER root
 RUN chmod +x /home/wso2carbon/update-tenant-admin-key.sh && \

@@ -56,6 +56,11 @@ else
   printf "\r✅ Created $ENV_FILE with secure permissions.\n"
 fi
 
+ENV_FILE_URLS="./.env"
+if [ -f "$ENV_FILE_URLS" ]; then
+  source $ENV_FILE_URLS
+fi
+
 ### Define your cleanup function
 cleanup() {
     chmod +x ./stop.sh
@@ -116,20 +121,20 @@ print_separator() {
 
 # --- Main Output ---
 printf "\n"
-printf "${BOLD}${BLUE}=== API Manager Access Information ===${RESET}\n\n"
+printf "${BOLD}${GREEN}=== API Manager Access Information ===${RESET}\n\n"
 
 # Use printf for aligned output. Adjust "-18s" based on the longest label.
-printf "  ${BOLD}%-18s${RESET}: ${GREEN}%s${RESET}\n" "Publisher Portal" "https://localhost:9500/publisher/apis"
-printf "  ${BOLD}%-18s${RESET}: ${GREEN}%s${RESET}\n" "Developer Portal" "https://localhost:9500/devportal"
-printf "  ${BOLD}%-18s${RESET}: ${GREEN}%s${RESET}\n" "Admin Portal"     "https://localhost:9500/admin/dashboard"
+printf "  ${BOLD}%-18s${RESET}: ${BLUE}%s${RESET}\n" "Publisher Portal" "https://localhost:9500/publisher/apis"
+printf "  ${BOLD}%-18s${RESET}: ${BLUE}%s${RESET}\n" "Developer Portal" "https://localhost:9500/devportal"
+printf "  ${BOLD}%-18s${RESET}: ${BLUE}%s${RESET}\n" "Admin Portal"     "https://localhost:9500/admin/dashboard"
 printf "\n"
 printf "  ${BOLD}%-18s${RESET}: ${MAGENTA}%s${RESET}\n" "Username"         "admin"
 printf "  ${BOLD}%-18s${RESET}: ${MAGENTA}%s${RESET}\n" "Password"         "admin"
 printf "\n"
 
-printf "${BOLD}${BLUE}=== Kibana Dashboard Access ===${RESET}\n\n"
+printf "${BOLD}${GREEN}=== Kibana Dashboard Access ===${RESET}\n\n"
 
-printf "  ${BOLD}%-18s${RESET}: ${GREEN}%s${RESET}\n" "URL"              "http://localhost:5601/app/dashboards#/view/f954a940-6ed4-11ec-9007-b93f9eb88870"
+printf "  ${BOLD}%-18s${RESET}: ${BLUE}%s${RESET}\n" "URL"              "http://localhost:5601/app/dashboards#/view/f954a940-6ed4-11ec-9007-b93f9eb88870"
 printf "\n"
 printf "  ${BOLD}%-18s${RESET}: ${MAGENTA}%s${RESET}\n" "Username"         "elastic"
 printf "  ${BOLD}%-18s${RESET}: ${MAGENTA}%s${RESET}\n" "Password"         "changeme"
